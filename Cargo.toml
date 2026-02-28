@@ -1,0 +1,9 @@
+[workspace]
+members = [
+  "./adss",
+  "./sharks",
+  "./star",
+  "./star-wasm",
+  "./ppoprf",
+]
+resolver = "2"

@@ -1,0 +1,30 @@
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+name: Tests
+
+jobs:
+  wasm:
+    runs-on: ubuntu-latest
+
+    env:
+      RUSTFLAGS: ''
+      CARGO_PROFILE_DEV_DEBUG: '0' # reduce size of target directory
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: WASM pkg
+        run: |
+          curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+          cd ./star-wasm
+          make build
+
+      - name: WASM www
+        run: |
+          cd ./star-wasm/www
+          make
